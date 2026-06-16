@@ -36,6 +36,17 @@ const taskAdd = async (req, res) => {
     }
 }
 
+const findAll = async (req, res) => {
+    try {
+        const findAll = await Task.find();
+        return res.status(200).json(findAll)
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            Message: "Server Error"
+        })
+    }
+}
 const taskFind = async (req, res) => {
     try {
         const id = req.params.id;
@@ -95,29 +106,29 @@ const taskUpdate = async (req, res) => {
     }
 }
 
-const taskdelete =async (req,res) => {
+const taskdelete = async (req, res) => {
     try {
         const id = req.params.id;
-        if(!mongoose.Types.ObjectId.isValid(id)){
+        if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({
-                Message:"Id is required"
+                Message: "Id is required"
             })
         }
 
         const taskDeleteById = await Task.findByIdAndDelete(id);
 
         return res.status(200).json({
-            Message:"Task Delete Successfully"
+            Message: "Task Delete Successfully"
         })
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            Message:"Server Error"
+            Message: "Server Error"
         })
     }
 }
 
 
 module.exports = {
-    taskAdd, taskFind, taskUpdate,taskdelete
+    taskAdd, taskFind, taskUpdate, taskdelete, findAll
 }

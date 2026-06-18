@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const userSignUp = async (req, res) => {
     try {
         const { contact, email, fullname, password, role } = req.body;
-        if (!contact || !email || !fullname || !password ) {
+        if (!contact || !email || !fullname || !password) {
             return res.status(400).json({
                 Message: "All fields are required"
             })
@@ -48,7 +48,7 @@ const userSignUp = async (req, res) => {
 const userLogIn = async (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log(req.body);
+        // console.log(req.body);
         if (!email || !password) {
             return res.status(400).json({
                 Message: "All fields are required"
@@ -76,14 +76,14 @@ const userLogIn = async (req, res) => {
             email,
             fullname: userFind.fullname,
             contact: userFind.contact,
-            role: userFind.role
+            // role: userFind.role
         });
-        console.log(payload);
+        // console.log(payload);
 
         const SCERCT_KEY = process.env.SCERCT_KEY;
-        const token = jwt.sign(payload, SCERCT_KEY, { expiresIn: "2h" });
+        const token = jwt.sign(payload, SCERCT_KEY, { expiresIn: "7d" });
 
-
+        // localStorage.setItem(token)
         return res.status(200).json({
             Message: "User LogIn Successfully",
             token

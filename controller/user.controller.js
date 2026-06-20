@@ -87,7 +87,7 @@ const userLogIn = async (req, res) => {
         return res.status(200).json({
             Message: "User LogIn Successfully",
             token,
-            User:{
+            user:{
                 email:userFind.email,
                 fullname:userFind.fullname,
                 contact:userFind.contact,

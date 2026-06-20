@@ -86,7 +86,13 @@ const userLogIn = async (req, res) => {
         // localStorage.setItem(token)
         return res.status(200).json({
             Message: "User LogIn Successfully",
-            token
+            token,
+            User:{
+                email:userFind.email,
+                fullname:userFind.fullname,
+                contact:userFind.contact,
+                image:userFind.image
+            }
         })
     } catch (error) {
         console.log(error);

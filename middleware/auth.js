@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const authMiddleware=async (req,res,next) => {
     try {
@@ -8,8 +9,9 @@ const authMiddleware=async (req,res,next) => {
                 Message:"Key is Required"
             })
         }
+        const token = authHeaders.split(" ")[1];
 
-        const decoded = jwt.decode(authHeaders);
+        const decoded = jwt.verify(token,process.env.SCERCT_KEY);
 
         req.User = decoded;
 

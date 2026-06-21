@@ -19,7 +19,7 @@ const taskAdd = async (req, res) => {
             progress,
             statusId,
             title,
-            userId
+            userId: req.User.id
 
 
         });
@@ -38,7 +38,7 @@ const taskAdd = async (req, res) => {
 
 const findAll = async (req, res) => {
     try {
-        const findAll = await Task.find();
+        const findAll = await Task.find({ userId: req.User.id });
         return res.status(200).json(findAll)
     } catch (error) {
         console.log(error);

@@ -73,6 +73,7 @@ const userLogIn = async (req, res) => {
 
 
         const payload = ({
+            id:userFind._id,
             email,
             fullname: userFind.fullname,
             contact: userFind.contact,

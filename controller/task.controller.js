@@ -2,9 +2,43 @@ const Task = require("../models/task.models");
 const mongoose = require("mongoose");
 
 
+// const taskAdd = async (req, res) => {
+//     try {
+//         const { categoryId, description, dueDate, dueTime, progress, statusId, title, userId } = req.body;
+//         if (!description || !dueDate || !dueTime || !progress || !title) {
+//             return res.status(400).json({
+//                 Message: "All Fields Are Required"
+//             })
+//         }
+
+//         const newTask = new Task({
+//             categoryId,
+//             description,
+//             dueDate,
+//             dueTime,
+//             progress,
+//             statusId,
+//             title,
+//             userId
+
+
+//         });
+
+//         await newTask.save();
+//         return res.status(201).json({
+//             Message: "Task Add successfully"
+//         })
+//     } catch (error) {
+//         console.log(error);
+//         return res.status(500).json({
+//             Message: "Server Error"
+//         })
+//     }
+// }
+
 const taskAdd = async (req, res) => {
     try {
-        const { categoryId, description, dueDate, dueTime, progress, statusId, title, userId } = req.body;
+        const { categoryId, description, dueDate, dueTime, progress, statusId, title } = req.body;
         if (!description || !dueDate || !dueTime || !progress || !title) {
             return res.status(400).json({
                 Message: "All Fields Are Required"
@@ -20,8 +54,6 @@ const taskAdd = async (req, res) => {
             statusId,
             title,
             userId: req.User.id
-
-
         });
 
         await newTask.save();
@@ -47,6 +79,18 @@ const findAll = async (req, res) => {
         })
     }
 }
+
+// const findAll = async (req, res) => {
+//     try {
+//         const findAll = await Task.find({ userId: req.User.id});
+//         return res.status(200).json(findAll)
+//     } catch (error) {
+//         console.log(error);
+//         return res.status(500).json({
+//             Message: "Server Error"
+//         })
+//     }
+// }
 const taskFind = async (req, res) => {
     try {
         const id = req.params.id;

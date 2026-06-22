@@ -53,7 +53,7 @@ const taskAdd = async (req, res) => {
             progress,
             statusId,
             title,
-            userId: req.User.id
+            userId: req.User._id
         });
 
         await newTask.save();
@@ -70,7 +70,11 @@ const taskAdd = async (req, res) => {
 
 const findAll = async (req, res) => {
     try {
+
         const findAll = await Task.find({ userId: req.User.id });
+        // console.log("Filtered result:", findAll);
+        return findAll;
+        // console.log(req.User);
         return res.status(200).json(findAll)
     } catch (error) {
         console.log(error);

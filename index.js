@@ -10,7 +10,12 @@ const User = require("./models/user.models");
 const roleBase = require("./middleware/role-base");
 app.use("/uploads", express.static("uploads"));
 const cors = require("cors");
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:5173", // ya jo bhi aapka frontend port hai (Vite=5173, CRA=3000)
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]  // 👈 ye zaroori hai, warna Authorization header allowed nahi hoga
+}));
 
 app.use("/user", require("./routes/user"));
 app.use("/admin", require("./routes/user"));

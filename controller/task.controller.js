@@ -46,12 +46,12 @@ const taskAdd = async (req, res) => {
         }
 
         const newTask = new Task({
-            categoryId,
+            // categoryId,
             description,
             dueDate,
             dueTime,
             progress,
-            statusId,
+            // statusId,
             title,
             userId: req.User.id
         });
@@ -84,6 +84,7 @@ const findAll = async (req, res) => {
         return res.status(500).json({ Message: "Server Error" })
     }
 }
+
 
 // const findAll = async (req, res) => {
 //     try {

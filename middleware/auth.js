@@ -39,23 +39,29 @@ require("dotenv").config();
 const authMiddleware = async (req, res, next) => {
     try {
         const authHeaders = req.headers.authorization;
+        // console.log(JSON.stringify(authHeaders));
         if (!authHeaders) {
             return res.status(400).json({
                 Message: "Key is Required"
             })
         }
 
-        const token = authHeaders.split(" ")[1];   // 👈 "Bearer " hatana
+        // const token = authHeaders.startsWith("Bearer")?authHeaders.split(" ")[1]:authHeaders
+
+        const token = authHeaders.split(" ")[1];  
+        // console.log("1 point") // 👈 "Bearer " hatana
         if (!token) {
             return res.status(400).json({
                 Message: "Token format invalid"
             })
         }
-
-        const decoded = jwt.verify(token, process.env.SCERCT_KEY);   // 👈 verify, decode nahi
+        const SCERCT_KEY = process.env.SCERCT_KEY;
+        const decoded = jwt.verify(token,SCERCT_KEY);
+        // console.log(decoded)
 
         req.User = decoded;
         next();
+        // console.log("3 point")
     } catch (error) {
         console.log(error);
         return res.status(401).json({

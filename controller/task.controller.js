@@ -53,7 +53,7 @@ const taskAdd = async (req, res) => {
             progress,
             statusId,
             title,
-            userId: req.User._id
+            userId: req.User.id
         });
 
         await newTask.save();
@@ -70,17 +70,18 @@ const taskAdd = async (req, res) => {
 
 const findAll = async (req, res) => {
     try {
+        // console.log("4 point");
+        const result = await Task.find({ userId: req.User.id }).lean();
+        // console.log("5 point - result:", result);
+        // console.log("5.5 point - about to send response");
 
-        const findAll = await Task.find({ userId: req.User.id });
-        // console.log("Filtered result:", findAll);
-        return findAll;
-        // console.log(req.User);
-        return res.status(200).json(findAll)
+        res.status(200).json(result);
+
+        // console.log("6 point - response sent");
+        return;
     } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            Message: "Server Error"
-        })
+        console.log("ERROR in findAll:", error);
+        return res.status(500).json({ Message: "Server Error" })
     }
 }
 
